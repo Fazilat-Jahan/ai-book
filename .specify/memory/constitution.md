@@ -1,55 +1,72 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: None -> 1.0.0
+List of modified principles: All new
+Added sections: Technology Stack and Tools, Learning Outcomes and Objectives
+Removed sections: None
+Templates requiring updates:
+  - .specify/templates/plan-template.md: ✅ updated
+  - .specify/templates/spec-template.md: ✅ updated
+  - .specify/templates/tasks-template.md: ✅ updated
+  - .specify/templates/commands/*.md: ✅ updated
+  - README.md: ⚠ pending (manual follow-up suggested)
+  - docs/quickstart.md: ⚠ pending (manual follow-up suggested)
+Follow-up TODOs: None
+-->
+# Hackathon I: Physical AI & Humanoid Robotics Book Project Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. AI/Spec-Driven Book Creation
+The book project MUST be created and maintained using Claude Code and Spec-Kit Plus, adhering to AI/Spec-Driven Development methodologies. This ensures a structured, consistent, and automatable content generation process.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Docusaurus & GitHub Pages Deployment
+The unified book project MUST be built using Docusaurus and deployed to GitHub Pages for public accessibility, version control, and collaborative content management. This enables clear documentation of course material and easy updates.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Integrated RAG Chatbot Development
+An integrated Retrieval-Augmented Generation (RAG) chatbot MUST be developed and embedded within the published book. This chatbot MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier, capable of answering questions about the book's content, including user-selected text. This provides an interactive learning experience for students.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Physical AI & Robotics Curriculum Focus
+The book content MUST focus on Physical AI and Humanoid Robotics, covering ROS 2, Gazebo, NVIDIA Isaac, and Vision-Language-Action (VLA) for embodied intelligence and control in simulated and real-world environments. This ensures alignment with the course's core themes and learning objectives.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Test-First Development (NON-NEGOTIABLE)
+All code components, especially for the RAG chatbot and any custom development, MUST follow a Test-Driven Development (TDD) approach. Tests MUST be written and approved before implementation, ensuring a strict Red-Green-Refactor cycle. This guarantees code quality, reliability, and maintainability.
 
-### [PRINCIPLE_6_NAME]
+## Technology Stack and Tools
 
+### Book Creation
+- Claude Code: For AI/Spec-Driven Development and content generation.
+- Spec-Kit Plus: For structured specification, planning, and task management.
+- Docusaurus: Static site generator for book publishing.
+- GitHub Pages: For deployment and hosting of the book.
 
-[PRINCIPLE__DESCRIPTION]
+### RAG Chatbot
+- OpenAI Agents/ChatKit SDKs: For chatbot logic and conversational AI.
+- FastAPI: For building robust API endpoints.
+- Neon Serverless Postgres: For database management.
+- Qdrant Cloud Free Tier: For vector database and similarity search in RAG.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### Robotics Simulation & Control
+- ROS 2: Middleware for robot control and communication.
+- Gazebo: For physics simulation and environment building.
+- Unity: For high-fidelity rendering and human-robot interaction simulation.
+- NVIDIA Isaac Sim: Photorealistic simulation and synthetic data generation.
+- Isaac ROS: Hardware-accelerated VSLAM and navigation.
+- Nav2: Path planning for bipedal humanoid movement.
+- OpenAI Whisper: For voice-to-action capabilities.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Learning Outcomes and Objectives
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Core Learning Outcomes
+- Understand Physical AI principles and embodied intelligence.
+- Master ROS 2 (Robot Operating System) for robotic control.
+- Simulate robots with Gazebo and Unity.
+- Develop with NVIDIA Isaac AI robot platform.
+- Design humanoid robots for natural interactions.
+- Integrate GPT models for conversational robotics.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other project practices. Amendments require thorough documentation, approval by project leads, and a clear migration plan. All Pull Requests (PRs) and code reviews MUST verify compliance with these principles. Justification for any increased complexity is required, ensuring that simplicity and adherence to core principles are maintained.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-11-28 | **Last Amended**: 2025-11-28
