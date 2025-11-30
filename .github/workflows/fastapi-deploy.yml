@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }} # Replace with your GCP project ID or other cloud provider variable
+  PROJECT_ID: " " # Placeholder for your GCP project ID or other cloud provider variable
   GAR_LOCATION: us-central1 # Adjust for your preferred region
   SERVICE_NAME: ai-book-backend # Choose a unique service name
 
