@@ -1,0 +1,6 @@
+Course Name: Physical AI & Humanoid Robotics Program
+Duration: 12 Weeks
+Focus: Blends theoretical AI concepts with practical humanoid robotics applications. Covers advanced topics in computer vision, natural language processing, reinforcement learning, and real-world robotics control, including ethical considerations.
+Target Audience: Aspiring AI engineers, robotics developers, and researchers.
+Prerequisites: Solid understanding of Python, linear algebra, calculus, and basic machine learning concepts. Familiarity with ROS is a plus.
+Learning Outcomes: Design, implement, and deploy AI-driven solutions for humanoid robots; analyze and optimize robotic systems; contribute to cutting-edge research in physical AI.

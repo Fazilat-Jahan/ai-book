@@ -1,0 +1,65 @@
+name: Deploy FastAPI Backend to Cloud Provider
+
+on:
+  push:
+    branches:
+      - main # Set this to your default branch
+    paths:
+      - 'backend/**' # Trigger only on changes in the backend directory
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }} # Replace with your GCP project ID or other cloud provider variable
+  GAR_LOCATION: us-central1 # Adjust for your preferred region
+  SERVICE_NAME: ai-book-backend # Choose a unique service name
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # This step assumes you are deploying to Google Cloud Run.
+      # Adapt these steps for your chosen cloud provider (e.g., AWS ECR/Lambda, Azure Container Apps).
+      - name: Authenticate Google Cloud
+        if: ${{ env.PROJECT_ID != '' }}
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'projects/${{ env.PROJECT_ID }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider' # Replace with your Workload Identity Provider
+          service_account: 'github-actions@${{ env.PROJECT_ID }}.iam.gserviceaccount.com' # Replace with your service account email
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Google Artifact Registry
+        if: ${{ env.PROJECT_ID != '' }}
+        uses: 'docker/login-action@v3'
+        with:
+          registry: '${{ GAR_LOCATION }}-docker.pkg.dev'
+          username: '_json_key'
+          password: '${{ secrets.GCP_SA_KEY }}' # Replace with your service account key or other cloud provider secret
+
+      - name: Build and push Docker image
+        if: ${{ env.PROJECT_ID != '' }}
+        run: |
+          docker build -t "${{ GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}" ./backend
+          docker push "${{ GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}"
+
+      - name: Deploy to Google Cloud Run
+        if: ${{ env.PROJECT_ID != '' }}
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.GAR_LOCATION }}
+          image: '${{ GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}'
+          # Add any other Cloud Run specific configurations here, e.g.,
+          # env_vars: |
+          #   QDRANT_URL=${{ secrets.QDRANT_URL }}
+          #   QDRANT_API_KEY=${{ secrets.QDRANT_API_KEY }}
+          #   GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}

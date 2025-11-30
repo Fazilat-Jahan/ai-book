@@ -1,0 +1,14 @@
+Minimum Hardware Requirements:
+- CPU: Intel Core i7 (9th Gen or newer) / AMD Ryzen 7 (3000 series or newer)
+- RAM: 16 GB DDR4
+- Storage: 500 GB NVMe SSD
+- GPU: NVIDIA GeForce RTX 2060 (or equivalent AMD Radeon) with 8GB VRAM
+- Operating System: Ubuntu 20.04 LTS (recommended) or Windows 10/11 with WSL2
+
+Recommended Hardware:
+- CPU: Intel Core i9 (11th Gen or newer) / AMD Ryzen 9 (5000 series or newer)
+- RAM: 32 GB DDR4
+- Storage: 1 TB NVMe SSD
+- GPU: NVIDIA GeForce RTX 3080 (or equivalent AMD Radeon) with 10GB+ VRAM
+- Operating System: Ubuntu 22.04 LTS
+- Additional: High-resolution monitor, stable internet connection.
