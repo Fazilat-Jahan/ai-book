@@ -13,8 +13,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "test": "jest",
-    "dummy": "echo Hello"
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "jsdom",
