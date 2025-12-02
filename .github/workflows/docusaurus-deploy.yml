@@ -1,0 +1,47 @@
+name: Deploy Docusaurus to GitHub Pages       
+    2 
+    3 on:
+    4   push:
+    5     branches:
+    6       - main # Set this to your default branch
+    7   workflow_dispatch:
+    8 
+    9 jobs:
+   10   deploy:
+   11     name: Deploy
+   12     runs-on: ubuntu-latest
+   13     steps:
+   14       - name: Checkout
+   15         uses: actions/checkout@v4
+   16 
+   17       - name: Setup Node.js
+   18         uses: actions/setup-node@v4
+   19         with:
+   20           node-version: 20
+   21 
+   22       - name: Get yarn cache directory        
+   23         id: yarn-cache-dir
+   24         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+   25 
+   26       - name: Restore cache
+   27         uses: actions/cache@v4
+   28         with:
+   29           path: ${{ steps.yarn-cache-dir.outputs.dir }}
+   30           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+   31           restore-keys: |
+   32             ${{ runner.os }}-yarn-
+   33 
+   34       - name: Install dependencies
+   35         run: yarn install --immutable --cwd docs
+   36 
+   37       - name: Build Docusaurus website
+   38         run: yarn build --cwd docs
+   39 
+   40       - name: Deploy to GitHub Pages
+   41         uses: peaceiris/actions-gh-pages@v3
+   42         with:
+   43           github_token: ${{ secrets.GITHUB_TOKEN }}
+   44           publish_dir: ./docs/build
+   45           # The branch Docusaurus expects to be deployed to is 'gh-pages'
+   46           # If you want to use a different branch, change this.
+   47           publish_branch: gh-pages
