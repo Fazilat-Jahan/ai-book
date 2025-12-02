@@ -32,10 +32,10 @@ name: Deploy FastAPI Backend to Cloud Provider
    32         uses: 'google-github-actions/auth@v2'
    33         with:
    34           workload_identity_provider: 'projects/${{ env.PROJECT_ID 
-      }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider' # Replace with your Workload Identity  
-      Provider
-   35           service_account: 'github-actions@${{ env.PROJECT_ID }}.iam.gserviceaccount.com' # Replace with your service   
-      account email
+      }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider' # Replace with your Workload   
+      Identity Provider
+   35           service_account: 'github-actions@${{ env.PROJECT_ID }}.iam.gserviceaccount.com' # Replace with your   
+      service account email
    36 
    37       - name: Set up Docker Buildx
    38         uses: docker/setup-buildx-action@v3
@@ -46,14 +46,14 @@ name: Deploy FastAPI Backend to Cloud Provider
    43         with:
    44           registry: '${{ env.GAR_LOCATION }}-docker.pkg.dev'
    45           username: '_json_key'
-   46           password: '${{ secrets.GCP_SA_KEY }}' # Replace with your service account key or other cloud provider secret  
+   46           password: '${{ secrets.GCP_SA_KEY }}' # Replace with your service account key or other cloud provider 
+      secret
    47 
    48       - name: Build and push Docker image
    49         if: ${{ env.PROJECT_ID != '' }}
    50         run: |
-   51           docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{     
-      env.SERVICE_NAME }}:${{ github.sha }}" ./backend
-   52           docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{         
+   51           docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/      {{ env.SERVICE_NAME }}:${{ github.sha }}" ./backend
+   52           docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ 
       env.SERVICE_NAME }}:${{ github.sha }}"
    53 
    54       - name: Deploy to Google Cloud Run
@@ -62,7 +62,7 @@ name: Deploy FastAPI Backend to Cloud Provider
    57         with:
    58           service: ${{ env.SERVICE_NAME }}
    59           region: ${{ env.GAR_LOCATION }}
-   60           image: '${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{ 
+   60           image: '${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}/${{      
       env.SERVICE_NAME }}:${{ github.sha }}'
    61           # Add any other Cloud Run specific configurations here, e.g.,
    62           # env_vars: |
