@@ -55,7 +55,7 @@ const config: Config = {
                                   // Please change this to your repo.
                                   // Remove this to remove the "edit this page" links.
                                   editUrl:
-                                    'https://github.com/GIAIC/ai-book/tree/main/',
+                                    'https://github.com/Fazilat-Jahan/ai-book',
                                   // Useful options to enforce blogging best practices
                                   onInlineTags: 'warn',
                                   onInlineAuthors: 'warn',
@@ -110,7 +110,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/GIAIC/ai-book',
+          href: 'https://github.com/Fazilat-Jahan/ai-book',
           label: 'GitHub',
           position: 'right',
         },
@@ -150,12 +150,12 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/GIAIC/ai-book',
+              href: 'https://github.com/Fazilat-Jahan',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} GIAIC. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Fazilat Jahan. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
