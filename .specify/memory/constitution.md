@@ -24,7 +24,7 @@ The book project MUST be created and maintained using Claude Code and Spec-Kit P
 The unified book project MUST be built using Docusaurus and deployed to GitHub Pages for public accessibility, version control, and collaborative content management. This enables clear documentation of course material and easy updates.
 
 ### III. Integrated RAG Chatbot Development
-An integrated Retrieval-Augmented Generation (RAG) chatbot MUST be developed and embedded within the published book. This chatbot MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier, capable of answering questions about the book's content, including user-selected text. This provides an interactive learning experience for students.
+An integrated Retrieval-Augmented Generation (RAG) chatbot MUST be developed and embedded within the published book. This chatbot MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, and Qdrant Cloud Free Tier, capable of answering questions about the book's content, including user-selected text. This provides an interactive learning experience for students.
 
 ### IV. Physical AI & Robotics Curriculum Focus
 The book content MUST focus on Physical AI and Humanoid Robotics, covering ROS 2, Gazebo, NVIDIA Isaac, and Vision-Language-Action (VLA) for embodied intelligence and control in simulated and real-world environments. This ensures alignment with the course's core themes and learning objectives.
@@ -43,7 +43,6 @@ All code components, especially for the RAG chatbot and any custom development, 
 ### RAG Chatbot
 - OpenAI Agents/ChatKit SDKs: For chatbot logic and conversational AI.
 - FastAPI: For building robust API endpoints.
-- Neon Serverless Postgres: For database management.
 - Qdrant Cloud Free Tier: For vector database and similarity search in RAG.
 
 ### Robotics Simulation & Control
