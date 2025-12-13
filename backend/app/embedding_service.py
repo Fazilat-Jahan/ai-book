@@ -1,3 +1,4 @@
+from typing import List
 import os
 from openai import OpenAI
 
@@ -13,23 +14,24 @@ def get_openai_client():
 def get_embedding_model_name():
     return 'embedding-001'
 
-def generate_embeddings(text: str):
+def generate_embeddings(texts: List[str]) -> List[List[float]]:
     client = get_openai_client()
     response = client.embeddings.create(
         model=get_embedding_model_name(),
-        input=text
+        input=texts
     )
-    return response.data[0].embedding
+    return [item.embedding for item in response.data]
 
 # Example usage (optional, for testing)
 if __name__ == "__main__":
     from dotenv import load_dotenv
     load_dotenv()
     try:
-        test_text = "Hello, world!"
-        embedding = generate_embeddings(test_text)
-        print(f"Successfully generated embedding for '{test_text}'.")
-        print(f"Embedding dimension: {len(embedding)}")
+        test_texts = ["Hello, world!", "Another text"]
+        embeddings = generate_embeddings(test_texts)
+        print(f"Successfully generated embeddings for {len(test_texts)} texts.")
+        for i, embedding in enumerate(embeddings):
+            print(f"Embedding {i+1} dimension: {len(embedding)}")
     except ValueError as e:
         print(f"Error: {e}")
     except Exception as e:
