@@ -11,7 +11,7 @@ interface Message {
 // Configuration for the backend API URL
 // In a real application, this would come from environment variables or a config file
 // For now, assuming backend is on localhost:8000
-const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://your-production-backend.com' : 'http://localhost:8000';
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://aibook-chatbot.vercel.app/' : 'http://localhost:8000';
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
