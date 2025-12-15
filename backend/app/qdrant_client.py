@@ -45,6 +45,10 @@ def upsert_points_to_qdrant(points: list[PointStruct]):
     """
     Upserts a list of PointStructs into the Qdrant collection.
     """
+    if not points:
+        print("No points to upsert. Skipping Qdrant upsert operation.")
+        return None 
+
     client = get_qdrant_client()
     operation_info = client.upsert(
         collection_name=QDRANT_COLLECTION_NAME,

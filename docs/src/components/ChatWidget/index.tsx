@@ -8,6 +8,11 @@ interface Message {
   isTyping?: boolean;
 }
 
+// Configuration for the backend API URL
+// In a real application, this would come from environment variables or a config file
+// For now, assuming backend is on localhost:8000
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://your-production-backend.com' : 'http://localhost:8000';
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -27,28 +32,91 @@ const ChatWidget = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
 
-  const sendMessageToBot = async (messageText: string, endpoint: string = '/api/v1/ask', body: object = { message: messageText }) => {
-    const newMessages = [...messages, { sender: 'user', text: messageText }];
-    setMessages(newMessages);
+  // Renamed to handleSendMessageToBot for clarity as the other sendMessage function is for UI updates
+  const handleSendMessageToBot = async (question: string, selectedText: string | null = null) => {
+    const userMessage: Message = { sender: 'user', text: question };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInputValue('');
     setIsTyping(true);
 
+    let botMessageIndex = -1; // To track the bot's current message being streamed
+
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(`${API_BASE_URL}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ question, selected_text: selectedText }),
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (!response.ok || !response.body) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
 
-      const data = await response.json();
-      setMessages((prevMessages) => [...prevMessages, { sender: 'bot', text: data.answer, sources: data.source_references }]);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulatedText = '';
+      let initialMessageAdded = false;
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        // The backend sends newline-delimited JSON objects
+        const jsonStrings = chunk.split('\n').filter(s => s.trim() !== '');
+
+        for (const jsonString of jsonStrings) {
+          try {
+            const data = JSON.parse(jsonString);
+
+            if (data.status === "streaming") {
+              accumulatedText += data.content || '';
+              if (!initialMessageAdded) {
+                // Add an initial bot message to the UI
+                setMessages((prevMessages) => {
+                  botMessageIndex = prevMessages.length;
+                  return [...prevMessages, { sender: 'bot', text: accumulatedText, isTyping: true }];
+                });
+                initialMessageAdded = true;
+              } else {
+                // Update the existing bot message
+                setMessages((prevMessages) => {
+                  if (botMessageIndex >= 0 && prevMessages[botMessageIndex]) {
+                    const newMsgs = [...prevMessages];
+                    newMsgs[botMessageIndex] = { ...newMsgs[botMessageIndex], text: accumulatedText };
+                    return newMsgs;
+                  }
+                  return prevMessages;
+                });
+              }
+            } else if (data.status === "complete") {
+              // Finalize message, remove typing indicator
+              setMessages((prevMessages) => {
+                if (botMessageIndex >= 0 && prevMessages[botMessageIndex]) {
+                  const newMsgs = [...prevMessages];
+                  newMsgs[botMessageIndex] = { ...newMsgs[botMessageIndex], isTyping: false };
+                  return newMsgs;
+                }
+                // Fallback if somehow initial message was not added
+                return [...prevMessages, { sender: 'bot', text: accumulatedText }];
+              });
+              setIsTyping(false); // Stop global typing indicator
+              return; // Stop processing further
+            } else if (data.status === "error") {
+              const errorMessage = data.content || 'An unknown error occurred.';
+              setMessages((prevMessages) => [...prevMessages, { sender: 'bot', text: errorMessage }]);
+              setIsTyping(false);
+              return; // Stop processing further
+            }
+          } catch (jsonError) {
+            console.error('Error parsing JSON chunk:', jsonError, 'Chunk:', jsonString);
+            // Optionally, handle malformed JSON in stream
+          }
+        }
+      }
     } catch (error) {
-      console.error('Error sending message:', error);
-      setMessages((prevMessages) => [...prevMessages, { sender: 'bot', text: 'Sorry, something went wrong.' }]);
+      console.error('Error sending message to bot:', error);
+      setMessages((prevMessages) => [...prevMessages, { sender: 'bot', text: 'Sorry, something went wrong with the connection.' }]);
     } finally {
       setIsTyping(false);
     }
@@ -57,13 +125,10 @@ const ChatWidget = () => {
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
-    // Handle special commands
-    if (inputValue.startsWith('/askselected ')) {
-      const selectedText = inputValue.substring('/askselected '.length);
-      await sendMessageToBot(inputValue, '/api/v1/ask-selected', { selected_text: selectedText });
-    } else {
-      await sendMessageToBot(inputValue);
-    }
+    // Remove the special /askselected command, as the backend now handles selected_text in a single /ask endpoint
+    // Instead, the frontend can implement a UI for selecting text, and then call handleSendMessageToBot with selectedText
+    // For now, just send the inputValue as the question
+    await handleSendMessageToBot(inputValue);
   };
 
   return (
@@ -77,7 +142,8 @@ const ChatWidget = () => {
             {messages.map((msg, index) => (
               <div key={index} className={`${styles.message} ${styles[msg.sender]}`}>
                 <div dangerouslySetInnerHTML={{ __html: msg.text.replace(/\n/g, '<br />') }} />
-                {msg.sender === 'bot' && msg.sources && msg.sources.length > 0 && (
+                {/* Source references are not currently provided by the backend stream, remove for now */}
+                {/* {msg.sender === 'bot' && msg.sources && msg.sources.length > 0 && (
                   <div className={styles.sourceReferences}>
                     <p>Sources:</p>
                     <ul>
@@ -88,7 +154,7 @@ const ChatWidget = () => {
                       ))}
                     </ul>
                   </div>
-                )}
+                )} */}
               </div>
             ))}
             {isTyping && (
@@ -118,3 +184,4 @@ const ChatWidget = () => {
 };
 
 export default ChatWidget;
+

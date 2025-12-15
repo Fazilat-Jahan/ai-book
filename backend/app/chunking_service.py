@@ -7,6 +7,9 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> List[str
     if not text:
         return []
 
+    if overlap >= chunk_size:
+        raise ValueError("Overlap must be less than chunk_size to avoid infinite loops or malformed chunks.")
+
     words = text.split()
     chunks = []
     

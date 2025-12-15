@@ -21,18 +21,18 @@ The approach will be an iterative debugging and repair process, focusing on foun
 
 ## Phase 1: Setup
 
-- [X] T001 Verify project structure and essential files (e.g., `main.py`, `package.json`, `requirements.txt`).
-- [X] T002 Install/verify all backend dependencies from `requirements.txt` (or equivalent).
-- [X] T003 Install/verify all frontend dependencies from `package.json` (or equivalent).
+- [ ] T001 Verify project structure and essential files (e.g., `main.py`, `package.json`, `requirements.txt`).
+- [ ] T002 Install/verify all backend dependencies from `requirements.txt` (or equivalent).
+- [ ] T003 Install/verify all frontend dependencies from `package.json` (or equivalent).
 
 ## Phase 2: Foundational Debugging & Verification
 
 ### Independent Test:
 Verify that LLM integration, embedding generation, Qdrant collection creation, and retrieval of relevant chunks are functional at a basic level, and no OpenAI paid models are being used.
 
-- [X] T004 [P] Verify Gemini LLM is correctly called via OpenAI Agents SDK/ChatKit-compatible endpoint, ensuring no OpenAI paid models are used. Inspect relevant backend files (e.g., `backend/app/llm_client.py`).
-- [X] T005 [P] Verify embedding generation properly utilizes the LLM embedding API. Inspect `backend/app/embedding_service.py`.
-- [X] T006 [P] Verify Qdrant collection `ai_book_rag_chunks` is created with `Cosine` similarity. Inspect `backend/app/qdrant_client.py` and Qdrant Cloud dashboard. (Note: collection name in code is `ai_book`)
+- [ ] T004 [P] Verify Gemini LLM is correctly called via OpenAI Agents SDK/ChatKit-compatible endpoint, ensuring no OpenAI paid models are used. Inspect relevant backend files (e.g., `backend/app/llm_client.py`).
+- [ ] T005 [P] Verify embedding generation properly utilizes the LLM embedding API. Inspect `backend/app/embedding_service.py`.
+- [ ] T006 [P] Verify Qdrant collection `ai_book_rag_chunks` is created with `Cosine` similarity. Inspect `backend/app/qdrant_client.py` and Qdrant Cloud dashboard. (Note: collection name in code is `ai_book`)
 - [ ] T007 [P] Test basic retrieval from Qdrant to ensure relevant chunks are returned for simple queries. Implement a temporary script for this (e.g., `backend/scripts/test_retrieval.py`). (Blocked: Gemini API quota exceeded)
 
 ## Phase 3: User Story 3 - Indexing and Embedding Documents (Debugging & Repair)

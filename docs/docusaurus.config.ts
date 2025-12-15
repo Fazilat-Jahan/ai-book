@@ -67,26 +67,6 @@ const config: Config = {
                               } satisfies Preset.Options,
                             ],
                           ],  plugins: [
-    // Add this custom Webpack plugin for proxy configuration
-    function customWebpackDevServerProxyPlugin() {
-      return {
-        name: 'custom-webpack-dev-server-proxy-plugin',
-        configureWebpack() {
-          return {
-            devServer: {
-              proxy: [
-                {
-                  context: ['/api'], // The paths to proxy
-                  target: 'http://localhost:8000', // Your backend API server
-                  changeOrigin: true,
-                  pathRewrite: { '^/api': '' }, // Rewrite the path to remove /api prefix
-                },
-              ],
-            },
-          };
-        },
-      };
-    },
   ],
 
   themeConfig: {
