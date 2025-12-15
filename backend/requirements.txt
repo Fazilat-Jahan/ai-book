@@ -6,3 +6,4 @@ qdrant-client
 python-multipart
 pypdf
 markdown-it-py
+python-json-logger

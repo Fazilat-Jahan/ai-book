@@ -15,6 +15,9 @@ def get_embedding_model_name():
     return 'embedding-001'
 
 def generate_embeddings(texts: List[str]) -> List[List[float]]:
+    if not texts:
+        return [] # Return empty list if no texts are provided for embedding
+
     client = get_openai_client()
     response = client.embeddings.create(
         model=get_embedding_model_name(),
