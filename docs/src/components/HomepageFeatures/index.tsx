@@ -41,13 +41,16 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({title, imageUrl, description}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <img className={styles.featureSvg} src={imageUrl} alt={title} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+    <div className={clsx('col col--4', styles.featureCard)}>
+      <div
+        className={styles.featureCardImage}
+        style={{backgroundImage: `url(${imageUrl})`}}
+      />
+      <div className={styles.featureCardContent}>
+        <Heading as="h3" className={styles.featureCardTitle}>
+          {title}
+        </Heading>
+        <p className={styles.featureCardDescription}>{description}</p>
       </div>
     </div>
   );
