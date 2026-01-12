@@ -36,12 +36,12 @@ function HomepageHeader() {
               </p>
               <div className={styles.heroButtons}>
                 <Link
-                  className="button button--primary button--lg"
+                  className={styles.glassButtonPrimary}
                   to="/docs/intro">
                   Start Learning
                 </Link>
                 <Link
-                  className="button button--secondary button--lg"
+                  className={styles.glassButtonSecondary}
                   to="/docs/course-summary">
                   Explore Course
                 </Link>
