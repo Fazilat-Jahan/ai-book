@@ -1,65 +1,304 @@
 .features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  padding: 6rem 0;
   width: 100%;
-}
-
-.featureSvg {
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.featureCard {
-  border-radius: 1rem;
-  overflow: hidden;
   position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  margin-bottom: 2rem;
-  min-height: 350px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: white;
+  /* Add subtle particle background to match hero */
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 20%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 30%);
 }
 
-.featureCard:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.featureCardImage {
+.features::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 30%),
+    linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.05) 50%, transparent 51%);
+  z-index: 1;
+  animation: bgMove 20s ease-in-out infinite;
+}
+
+.features::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 15% 40%, rgba(59, 130, 246, 0.1) 1px, transparent 2px),
+    radial-gradient(circle at 85% 60%, rgba(99, 102, 241, 0.1) 1px, transparent 2px),
+    radial-gradient(circle at 30% 80%, rgba(139, 92, 246, 0.1) 1px, transparent 2px),
+    radial-gradient(circle at 70% 20%, rgba(236, 72, 153, 0.1) 1px, transparent 2px);
+  background-size: 300px 300px;
+  z-index: 2;
+  animation: particleFloat 15s linear infinite;
+}
+
+.featureCard {
+  border-radius: 1.8rem;
+  overflow: visible;
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  margin-bottom: 3rem;
+  min-height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 20px 40px rgba(31, 38, 135, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  position: relative;
+  z-index: 3;
+}
+
+.featureCard:hover {
+  transform: translateY(-12px) rotateX(3deg) rotateY(1deg);
+  box-shadow:
+    0 35px 60px rgba(31, 38, 135, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.featureCardImageContainer {
+  width: 150px;
+  height: 150px;
+  margin: -75px auto 2rem;
+  position: relative;
+  z-index: 10;
+  transform-style: preserve-3d;
+}
+
+.featureCardImage {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   background-size: cover;
   background-position: center;
-  transition: transform 0.3s ease;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 20px 40px rgba(31, 38, 135, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  object-fit: cover;
+  transform-style: preserve-3d;
+  animation: floatImage 6s ease-in-out infinite;
 }
 
 .featureCard:hover .featureCardImage {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(5deg) translateZ(10px);
+  box-shadow:
+    0 25px 50px rgba(31, 38, 135, 0.3),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes floatImage {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
 }
 
 .featureCardContent {
-  position: relative;
-  z-index: 1;
-  padding: 2rem;
-  color: white;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
-  height: 100%;
+  padding: 2.5rem;
+  text-align: center;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 5;
 }
 
 .featureCardTitle {
-  font-size: 1.75rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.3;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .featureCardDescription {
   font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+/* Premium hover effect */
+.featureCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1.8rem;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.featureCard:hover::after {
+  opacity: 1;
+}
+
+/* Premium icons */
+.featureCardIcon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.featureCard:hover .featureCardIcon {
+  transform: translateY(-5px) rotate(8deg);
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.3);
+}
+
+/* Premium divider */
+.featureCardDivider {
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(99, 102, 241, 0.3), transparent);
+  margin: 1.5rem 0;
+}
+
+/* Responsive design */
+@media screen and (max-width: 996px) {
+  .features {
+    padding: 4rem 0;
+  }
+
+  .featureCard {
+    min-height: auto;
+    margin-bottom: 4rem;
+  }
+
+  .featureCardImageContainer {
+    width: 130px;
+    height: 130px;
+    margin: -65px auto 2rem;
+  }
+
+  .featureCardContent {
+    padding: 2rem;
+  }
+
+  .featureCardTitle {
+    font-size: 1.4rem;
+  }
+
+  .featureCardDescription {
+    font-size: 0.95rem;
+    padding: 0 0.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .featureCard {
+    margin-bottom: 5rem;
+  }
+
+  .featureCardImageContainer {
+    width: 110px;
+    height: 110px;
+    margin: -55px auto 1.8rem;
+  }
+
+  .featureCardTitle {
+    font-size: 1.25rem;
+  }
+
+  .featureCardDescription {
+    font-size: 0.9rem;
+  }
+
+  .featureCardIcon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .features {
+    padding: 3rem 1rem;
+  }
+
+  .featureCardImageContainer {
+    width: 90px;
+    height: 90px;
+    margin: -45px auto 1.5rem;
+  }
+
+  .featureCardContent {
+    padding: 1.8rem;
+  }
+
+  .featureCardTitle {
+    font-size: 1.15rem;
+  }
+
+  .featureCardDescription {
+    font-size: 0.85rem;
+    padding: 0 0.5rem;
+  }
+
+  .featureCardIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+/* Add keyframe animations for background effects */
+@keyframes bgMove {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(20px, 20px); }
+  50% { transform: translate(0, 40px); }
+  75% { transform: translate(-20px, 20px); }
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
 }
