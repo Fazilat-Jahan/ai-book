@@ -1,0 +1,49 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="favicon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="favicon-gradient-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#c4b5fd"/>
+      <stop offset="100%" stop-color="#67e8f9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Simplified AI/Humanoid icon for favicon -->
+  <circle cx="16" cy="16" r="14" fill="url(#favicon-gradient)" opacity="0.2" class="favicon-bg"/>
+
+  <!-- Minimalist head and body -->
+  <circle cx="16" cy="12" r="5" fill="url(#favicon-gradient)" class="favicon-head"/>
+  <rect x="13" y="17" width="6" height="8" rx="3" fill="url(#favicon-gradient)" class="favicon-body"/>
+
+  <!-- Eye dots -->
+  <circle cx="14" cy="11" r="1" fill="#ffffff" class="favicon-eyes"/>
+  <circle cx="18" cy="11" r="1" fill="#ffffff" class="favicon-eyes"/>
+
+  <!-- Tech symbol -->
+  <circle cx="16" cy="15" r="0.5" fill="#ffffff" class="favicon-tech"/>
+
+  <style>
+    :root {
+      --favicon-primary: url(#favicon-gradient);
+      --favicon-secondary: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --favicon-primary: url(#favicon-gradient-dark);
+      }
+    }
+
+    .favicon-bg, .favicon-head, .favicon-body {
+      fill: var(--favicon-primary);
+    }
+
+    .favicon-eyes, .favicon-tech {
+      fill: var(--favicon-secondary);
+    }
+  </style>
+</svg>
