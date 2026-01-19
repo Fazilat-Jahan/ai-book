@@ -6,33 +6,107 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #8b5cf6; /* Purple */
+  --ifm-color-primary-dark: #7c3aed;
+  --ifm-color-primary-darker: #6d28d9;
+  --ifm-color-primary-darkest: #5b21b6;
+  --ifm-color-primary-light: #a78bfa;
+  --ifm-color-primary-lighter: #c4b5fd;
+  --ifm-color-primary-lightest: #ede9fe;
   --ifm-color-emphasis-600: #525252;
   --ifm-color-emphasis-700: #3f3f3f;
   --ifm-heading-color: #1a1a1a;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(139, 92, 246, 0.2); /* Purple highlight */
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  --ifm-color-primary: #a78bfa; /* Lighter purple for dark mode */
+  --ifm-color-primary-dark: #8b5cf6;
+  --ifm-color-primary-darker: #7c3aed;
+  --ifm-color-primary-darkest: #6d28d9;
+  --ifm-color-primary-light: #c4b5fd;
+  --ifm-color-primary-lighter: #ddd6fe;
+  --ifm-color-primary-lightest: #ede9fe;
   --ifm-color-emphasis-600: #a3a3a3;
   --ifm-color-emphasis-700: #d4d4d4;
   --ifm-heading-color: #f5f5f5;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --docusaurus-highlighted-code-line-bg: rgba(167, 139, 250, 0.2); /* Purple highlight */
+}
+
+/* Glassy navbar and footer styles with proper contrast */
+.navbar {
+  background: rgba(139, 92, 246, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.3) !important;
+  box-shadow:
+    0 4px 20px rgba(139, 92, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.navbar__brand,
+.navbar__title,
+.navbar__link,
+.navbar__item {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  font-weight: 500 !important;
+}
+
+.navbar__link:hover,
+.menu__link:hover {
+  color: #f0f9ff !important;
+  text-shadow: 0 0 8px rgba(240, 249, 255, 0.6) !important;
+}
+
+/* Glassy footer styles */
+.footer {
+  background: rgba(139, 92, 246, 0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-top: 1px solid rgba(139, 92, 246, 0.3) !important;
+  box-shadow:
+    0 -4px 20px rgba(139, 92, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.footer__title,
+.footer__link-item {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.footer__copyright {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Light mode adjustments */
+html[data-theme='light'] .navbar {
+  background: rgba(139, 92, 246, 0.15) !important;
+}
+
+html[data-theme='light'] .navbar__brand,
+html[data-theme='light'] .navbar__title,
+html[data-theme='light'] .navbar__link,
+html[data-theme='light'] .navbar__item {
+  color: #1e293b !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+html[data-theme='light'] .footer {
+  background: rgba(139, 92, 246, 0.15) !important;
+}
+
+html[data-theme='light'] .footer__title,
+html[data-theme='light'] .footer__link-item {
+  color: #1e293b !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+}
+
+html[data-theme='light'] .footer__copyright {
+  color: #1e293b !important;
 }
 
 main {
